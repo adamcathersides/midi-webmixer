@@ -1,11 +1,18 @@
 import rtmidi
+import time
 
-def tx(control_number, value):
+class midi:
 
-    midiout = rtmidi.MidiOut()
+    def __init__(self, midiport):
 
-    midiout.open_port(3)
+        self.midiout = rtmidi.MidiOut()
+        self.midiout.open_port(midiport)
 
-    message = [0xB0, int(control_number), int(value)]
-    midiout.send_message(message)
-    del midiout
+    def cc_tx(self, control_number, value):
+
+        message = [0xB0, int(control_number), int(value)]
+        self.midiout.send_message(message)
+
+    def close(self):
+        del self.midiout
+

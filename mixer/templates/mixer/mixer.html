@@ -21,7 +21,7 @@
     <input type="submit" value="Send">
     <script>
         function myFunction(val) {
-        document.getElementById("myForm").submit();
+        navigator.sendBeacon('http://127.0.0.1:5001/mixer/aux1/1/' + val, val);
         }
     </script>
   </form>

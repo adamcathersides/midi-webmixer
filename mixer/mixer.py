@@ -2,8 +2,7 @@ import functools
 
 from flask import Blueprint, flash, g, redirect, render_template, request, session, url_for
 
-from mixer.db import get_db
-from mixer.send_cc import tx
+# from mixer.db import get_db
 
 bp = Blueprint('mixer', __name__, url_prefix='/mixer')
 
@@ -14,10 +13,10 @@ def mixer():
         channel2 = request.form['channel2']
         channel3 = request.form['channel3']
         channel4 = request.form['channel4']
-        db = get_db()
+        # db = get_db()
         error = None
 
-        if error is None:
+        # if error is None:
             # db.execute(
                 # 'INSERT INTO aux1 (channel1) VALUES (?)',
                 # (channel1)
@@ -35,10 +34,6 @@ def mixer():
                 # (channel4)
             # )
             # db.commit()
-            tx(0, channel1)
-            tx(1, channel2)
-            tx(2, channel3)
-            tx(3, channel4)
             # return 'done'
 
         flash(error)
