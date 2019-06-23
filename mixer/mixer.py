@@ -1,13 +1,18 @@
-import functools
+#!/usr/bin/env python3
 
+import functools
+import netifaces
 from flask import Blueprint, flash, g, redirect, render_template, request, session, url_for
 
 # from mixer.db import get_db
 
 bp = Blueprint('mixer', __name__, url_prefix='/mixer')
 
-@bp.route('/mixer', methods=('GET', 'POST'))
-def mixer():
+interface = 'wlp2s0'
+ip_addr = netifaces.ifaddresses(interface)[2][0]['addr']
+
+@bp.route('/<mix>', methods=('GET', 'POST'))
+def mixer(mix):
     if request.method == 'POST':
         channel1 = request.form['channel1']
         channel2 = request.form['channel2']
@@ -38,4 +43,4 @@ def mixer():
 
         flash(error)
 
-    return render_template('mixer/mixer.html')
+    return render_template('mixer/mixer.html', ip_addr=ip_addr)

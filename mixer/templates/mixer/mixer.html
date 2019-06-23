@@ -7,21 +7,47 @@
 {% block content %}
   <form method="post" id="myForm">
     <label for="Channel1">1</label>
-    <input type="range" orient="vertical" min="1" max="127" class="slider" value="1" name="channel1" id="channel1" onchange='myFunction(this.value)'>
+    <input type="range" orient="vertical" min="1" max="127" class="slider" value="1" name="channel1" id="1" onchange='sendChannel(this.id, this.value)'>
 
     <label for="Channel2">2</label>
-    <input type="range" orient="vertical" min="1" max="127" class="slider" name="channel2" id="channel2">
+    <input type="range" orient="vertical" min="1" max="127" class="slider" value="1" name="channel2" id="2" onchange='sendChannel(this.id, this.value)'>
 
     <label for="Channel3">3</label>
-    <input type="range" orient="vertical" min="1" max="127" class="slider" name="channel3" id="channel3">
+    <input type="range" orient="vertical" min="1" max="127" class="slider" value="1" name="channel3" id="3" onchange='sendChannel(this.id, this.value)'>
 
     <label for="Channel4">4</label>
-    <input type="range" orient="vertical" min="1" max="127" class="slider" name="channel4" id="channel4">
-    <br></br>
-    <input type="submit" value="Send">
+    <input type="range" orient="vertical" min="1" max="127" class="slider" value="1" name="channel4" id="4" onchange='sendChannel(this.id, this.value)'>
+
+    <label for="Channel4">4</label>
+    <input type="range" orient="vertical" min="1" max="127" class="slider" value="1" name="channel4" id="4" onchange='sendChannel(this.id, this.value)'>
+
+    <label for="Channel5">5</label>
+    <input type="range" orient="vertical" min="1" max="127" class="slider" value="1" name="channel5" id="5" onchange='sendChannel(this.id, this.value)'>
+
+    <label for="Channel6">6</label>
+    <input type="range" orient="vertical" min="1" max="127" class="slider" value="1" name="channel6" id="6" onchange='sendChannel(this.id, this.value)'>
+
+    <label for="Channel7">7</label>
+    <input type="range" orient="vertical" min="1" max="127" class="slider" value="1" name="channel7" id="7" onchange='sendChannel(this.id, this.value)'>
+
+    <label for="Channel8">8</label>
+    <input type="range" orient="vertical" min="1" max="127" class="slider" value="1" name="channel8" id="8" onchange='sendChannel(this.id, this.value)'>
+
+    <label for="Channel9">9</label>
+    <input type="range" orient="vertical" min="1" max="127" class="slider" value="1" name="channel9" id="9" onchange='sendChannel(this.id, this.value)'>
+
+    <label for="Channel10">10</label>
+    <input type="range" orient="vertical" min="1" max="127" class="slider" value="1" name="channel10" id="10" onchange='sendChannel(this.id, this.value)'>
+
+    <label for="Channel11">11</label>
+    <input type="range" orient="vertical" min="1" max="127" class="slider" value="1" name="channel11" id="11" onchange='sendChannel(this.id, this.value)'>
+
+    <label for="Channel12">12</label>
+    <input type="range" orient="vertical" min="1" max="127" class="slider" value="1" name="channel12" id="12" onchange='sendChannel(this.id, this.value)'>
+
     <script>
-        function myFunction(val) {
-        navigator.sendBeacon('http://127.0.0.1:5001/mixer/aux1/1/' + val, val);
+        function sendChannel(channel, val) {
+            navigator.sendBeacon('http://{{ip_addr}}:5001/mixer/aux1/' + channel + '/', val);
         }
     </script>
   </form>

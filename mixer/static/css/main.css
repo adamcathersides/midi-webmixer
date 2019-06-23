@@ -2,7 +2,7 @@ input[type=range][orient=vertical]
 {
     writing-mode: bt-lr; /* IE */
     -webkit-appearance: slider-vertical; /* WebKit */
-    width: 180px;
-    height: 1000px;
-    padding: 10 5px;
+    width: 130px;
+    height: 600px;
+    padding: 0 5px;
 }
