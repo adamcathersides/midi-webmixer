@@ -1,49 +1,46 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}Mixer{% endblock %}</h1>
+<h1>{% block title %}{{mix}} Mixer{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
   <form method="post" id="myForm">
     <label for="Channel1">1</label>
-    <input type="range" orient="vertical" min="1" max="127" class="slider" value="1" name="channel1" id="1" onchange='sendChannel(this.id, this.value)'>
+    <input type="range" orient="vertical" min="1" max="127" class="slider" value="{{channel_map[mix]['channel1']['value']}}" name="channel1" id="1" onchange='sendChannel(this.id, this.value)'>
 
     <label for="Channel2">2</label>
-    <input type="range" orient="vertical" min="1" max="127" class="slider" value="1" name="channel2" id="2" onchange='sendChannel(this.id, this.value)'>
+    <input type="range" orient="vertical" min="1" max="127" class="slider" value="{{channel_map[mix]['channel2']['value']}}" name="channel2" id="2" onchange='sendChannel(this.id, this.value)'>
 
     <label for="Channel3">3</label>
-    <input type="range" orient="vertical" min="1" max="127" class="slider" value="1" name="channel3" id="3" onchange='sendChannel(this.id, this.value)'>
+    <input type="range" orient="vertical" min="1" max="127" class="slider" value="{{channel_map[mix]['channel3']['value']}}" name="channel3" id="3" onchange='sendChannel(this.id, this.value)'>
 
     <label for="Channel4">4</label>
-    <input type="range" orient="vertical" min="1" max="127" class="slider" value="1" name="channel4" id="4" onchange='sendChannel(this.id, this.value)'>
-
-    <label for="Channel4">4</label>
-    <input type="range" orient="vertical" min="1" max="127" class="slider" value="1" name="channel4" id="4" onchange='sendChannel(this.id, this.value)'>
+    <input type="range" orient="vertical" min="1" max="127" class="slider" value="{{channel_map[mix]['channel4']['value']}}" name="channel4" id="4" onchange='sendChannel(this.id, this.value)'>
 
     <label for="Channel5">5</label>
-    <input type="range" orient="vertical" min="1" max="127" class="slider" value="1" name="channel5" id="5" onchange='sendChannel(this.id, this.value)'>
+    <input type="range" orient="vertical" min="1" max="127" class="slider" value="{{channel_map[mix]['channel5']['value']}}" name="channel5" id="5" onchange='sendChannel(this.id, this.value)'>
 
     <label for="Channel6">6</label>
-    <input type="range" orient="vertical" min="1" max="127" class="slider" value="1" name="channel6" id="6" onchange='sendChannel(this.id, this.value)'>
+    <input type="range" orient="vertical" min="1" max="127" class="slider" value="{{channel_map[mix]['channel6']['value']}}" name="channel6" id="6" onchange='sendChannel(this.id, this.value)'>
 
     <label for="Channel7">7</label>
-    <input type="range" orient="vertical" min="1" max="127" class="slider" value="1" name="channel7" id="7" onchange='sendChannel(this.id, this.value)'>
+    <input type="range" orient="vertical" min="1" max="127" class="slider" value="{{channel_map[mix]['channel7']['value']}}" name="channel7" id="7" onchange='sendChannel(this.id, this.value)'>
 
     <label for="Channel8">8</label>
-    <input type="range" orient="vertical" min="1" max="127" class="slider" value="1" name="channel8" id="8" onchange='sendChannel(this.id, this.value)'>
+    <input type="range" orient="vertical" min="1" max="127" class="slider" value="{{channel_map[mix]['channel8']['value']}}" name="channel8" id="8" onchange='sendChannel(this.id, this.value)'>
 
     <label for="Channel9">9</label>
-    <input type="range" orient="vertical" min="1" max="127" class="slider" value="1" name="channel9" id="9" onchange='sendChannel(this.id, this.value)'>
+    <input type="range" orient="vertical" min="1" max="127" class="slider" value="{{channel_map[mix]['channel9']['value']}}" name="channel9" id="9" onchange='sendChannel(this.id, this.value)'>
 
     <label for="Channel10">10</label>
-    <input type="range" orient="vertical" min="1" max="127" class="slider" value="1" name="channel10" id="10" onchange='sendChannel(this.id, this.value)'>
+    <input type="range" orient="vertical" min="1" max="127" class="slider" value="{{channel_map[mix]['channel10']['value']}}" name="channel10" id="10" onchange='sendChannel(this.id, this.value)'>
 
     <label for="Channel11">11</label>
-    <input type="range" orient="vertical" min="1" max="127" class="slider" value="1" name="channel11" id="11" onchange='sendChannel(this.id, this.value)'>
+    <input type="range" orient="vertical" min="1" max="127" class="slider" value="{{channel_map[mix]['channel11']['value']}}" name="channel12" id="11" onchange='sendChannel(this.id, this.value)'>
 
     <label for="Channel12">12</label>
-    <input type="range" orient="vertical" min="1" max="127" class="slider" value="1" name="channel12" id="12" onchange='sendChannel(this.id, this.value)'>
+    <input type="range" orient="vertical" min="1" max="127" class="slider" value="{{channel_map[mix]['channel12']['value']}}" name="channel12" id="12" onchange='sendChannel(this.id, this.value)'>
 
     <script>
         function sendChannel(channel, val) {
