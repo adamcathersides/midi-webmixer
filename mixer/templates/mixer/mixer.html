@@ -47,7 +47,7 @@
 
     <script>
         function sendChannel(channel, val) {
-            navigator.sendBeacon('http://{{ip_addr}}:5001/mixer/aux1/' + channel + '/', val);
+            navigator.sendBeacon('http://{{ip_addr}}:5001/mixer/{{mix}}/' + channel + '/' + val, val);
         }
     </script>
   </form>

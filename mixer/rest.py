@@ -6,12 +6,27 @@ app = Flask(__name__)
 api = Api(app)
 
 # aux_map[aux][channel]
-aux_map = {
-        'aux1':{1:1,  2:2,  3:3,  4:4,  5:5,  6:6,  7:7,  8:8,  9:9,  10:10, 11:11, 12:12},
-        'aux2':{1:13, 2:14, 3:15, 4:16, 5:17, 6:18, 7:19, 8:20, 9:21, 10:22, 11:23, 12:24},
-        'aux3':{1:25, 2:26, 3:27, 4:28, 5:29, 6:30, 7:31, 8:32, 9:33, 10:34, 11:35, 12:36},
-        'aux4':{1:37, 2:38, 3:39, 4:40, 5:41, 6:42, 7:43, 8:44, 9:45, 10:46, 11:47, 12:48}
-        }
+
+
+def _createChannelMmap():
+    """ Create the map of mix--> channel--> midi cc number"""
+
+    mix_map = {}
+    for mix in range(1,5):
+        mix_map[f'aux{mix}'] = {}
+        for channel in range(0,12):
+            # Generate offsets for cc numbers
+            if mix == 1:
+                offset = 0
+            elif mix == 2:
+                offset = 12
+            elif mix == 3:
+                offset = 24
+            elif mix == 4:
+                offset = 36
+            mix_map[f'aux{mix}'][f'channel{channel+1}'] = {'cc':channel + offset, 'value':0}
+    return mix_map
+
 
 class Mixer(Resource):
 
@@ -20,7 +35,7 @@ class Mixer(Resource):
 
     def post(self, aux, channel, value):
 
-        cc = aux_map[f'aux{aux}'][channel]
+        cc = channelMap[f'aux{aux}'][f'channel{channel}']['cc']
 
         self.midi.cc_tx(cc, value)
         return {f'aux{aux}':{channel:value}}
@@ -37,4 +52,5 @@ class Mixer(Resource):
 api.add_resource(Mixer, '/mixer/aux<int:aux>/<int:channel>/<int:value>', endpoint = 'mixer')
 
 if __name__ == '__main__':
+    channelMap = _createChannelMmap()
     app.run(debug=True, host='0.0.0.0', port=5001)
