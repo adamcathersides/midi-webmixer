@@ -3,6 +3,7 @@ from flask_restful import Api, Resource
 import send_cc
 import json
 import os
+import config
 
 app = Flask(__name__)
 api = Api(app)

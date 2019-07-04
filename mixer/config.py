@@ -1,27 +1,50 @@
 import configparser
 import os
+import sys
 
 CONFIG_FILE = 'config.ini'
 
-config = configparser.ConfigParser()
-config.read_dict({'Network':{'interface':''},
-            'ChannelNames':{}
+DEFAULT_CONFIG = ({'Network':{'interface':''},
+    'Midi': {'port':''},
+    'ChannelNames':{
+        '1':'',
+        '2':'',
+        '3':'',
+        '4':'',
+        '5':'',
+        '6':'',
+        '7':'',
+        '8':'',
+        '9':'',
+        '10':'',
+        '11':'',
+        '12':''
+        }
         })
 
+class ConfigCheck:
 
-def write_config(filename=CONFIG_FILE):
-    with open(filename, 'w') as configfile:
-        config.write(configfile)
+    def __init__(self):
 
-def read_config(filename=CONFIG_FILE):
-    return config.read(filename)
+        if not os.path.isfile(f'./{CONFIG_FILE}'):
+            print(f'\nCannot find config file therefore writing default file to {CONFIG_FILE}.'
+                  '\nPlease review config and rerun')
+            self.write_config()
+            sys.exit(1)
+
+        self.config = configparser.ConfigParser()
+
+    def parse(self):
+        self.read_config()
+        return self.config
 
 
-if os.path.isfile(f'./{CONFIG_FILE}'):
-    print('Config exists! Reading..')
-    read_config()
-else:
-    print(f'Cannot find config file. Writing default file to {CONFIG_FILE}')
-    write_config()
 
-print(config.sections())
+    def write_config(self, filename=CONFIG_FILE):
+        with open(filename, 'w') as configfile:
+            self.config.write(configfile)
+
+    def read_config(self, filename=CONFIG_FILE):
+        cfg = self.config.read(filename)
+
+
