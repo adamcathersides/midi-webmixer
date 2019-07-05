@@ -22,9 +22,13 @@ DEFAULT_CONFIG = ({'Network':{'interface':''},
         }
         })
 
+
+
 class ConfigCheck:
 
     def __init__(self):
+
+        self.config = configparser.ConfigParser()
 
         if not os.path.isfile(f'./{CONFIG_FILE}'):
             print(f'\nCannot find config file therefore writing default file to {CONFIG_FILE}.'
@@ -32,15 +36,12 @@ class ConfigCheck:
             self.write_config()
             sys.exit(1)
 
-        self.config = configparser.ConfigParser()
-
     def parse(self):
         self.read_config()
         return self.config
 
-
-
     def write_config(self, filename=CONFIG_FILE):
+        self.config.read_dict(DEFAULT_CONFIG)
         with open(filename, 'w') as configfile:
             self.config.write(configfile)
 

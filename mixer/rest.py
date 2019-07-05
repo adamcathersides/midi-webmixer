@@ -3,7 +3,7 @@ from flask_restful import Api, Resource
 import send_cc
 import json
 import os
-import config
+from config import ConfigCheck
 
 app = Flask(__name__)
 api = Api(app)
@@ -31,7 +31,9 @@ def _createChannelMap():
 class Mixer(Resource):
 
     def __init__(self):
-        self.midi = send_cc.midi(3)
+
+
+        self.midi = send_cc.midi(cfg['Midi']['port'])
 
         if os.path.isfile('./channelmap.json'):
             with open('channelmap.json', 'r') as mapfile:
@@ -58,6 +60,8 @@ class Mixer(Resource):
 
     def delete(self):
         pass
+
+cfg = ConfigCheck().parse()
 
 api.add_resource(Mixer, '/mixer/aux<int:aux>/<int:channel>/<int:value>', endpoint = 'mixer')
 

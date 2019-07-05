@@ -4,11 +4,13 @@ import functools
 import netifaces
 from flask import Blueprint, flash, g, redirect, render_template, request, session, url_for
 import json
+from mixer.config import ConfigCheck
 # from mixer.db import get_db
 
 bp = Blueprint('mixer', __name__, url_prefix='/mixer')
+cfg = ConfigCheck().parse()
 
-interface = 'wlp2s0'
+interface = cfg['Network']['Interface']
 ip_addr = netifaces.ifaddresses(interface)[2][0]['addr']
 
 
@@ -37,5 +39,5 @@ def mixer(mix):
             # db.commit()
             # return 'done'
 
-    return render_template('mixer/mixer.html', ip_addr=ip_addr, mix=mix, channel_map=channel_map)
+    return render_template('mixer/mixer.html', ip_addr=ip_addr, mix=mix, channel_map=channel_map, channel_names=cfg['ChannelNames'])
 
