@@ -5,20 +5,19 @@ import netifaces
 from flask import Flask, Blueprint, flash, g, redirect, render_template, request, session, url_for
 import json
 from mixer.config import ConfigCheck
+import os
 # from mixer.db import get_db
 
-app = Flask(__name__)
-bp = Blueprint('mixer', __name__, url_prefix='/mixer')
 cfg = ConfigCheck().parse()
-
 interface = cfg['Network']['Interface']
 ip_addr = netifaces.ifaddresses(interface)[2][0]['addr']
 
+app = Flask(__name__)
 
-@bp.route('/<mix>', methods=('GET', 'POST'))
+@app.route('/mixer/<mix>', methods=('GET', 'POST'))
 def mixer(mix):
 
-    with open('mixer/channelmap.json', 'r') as mapfile:
+    with open('/tmp/channelmap.json', 'r') as mapfile:
         channel_map = json.load(mapfile)
         # if error is None:
             # db.execute(
@@ -42,5 +41,8 @@ def mixer(mix):
 
     return render_template('mixer/mixer.html', ip_addr=ip_addr, mix=mix, channel_map=channel_map, channel_names=cfg['ChannelNames'])
 
-if __name__ == '__main__':
+def run():
     app.run(debug=True, host='0.0.0.0', port=5000)
+
+if __name__ == '__main__':
+    run()

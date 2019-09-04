@@ -30,11 +30,11 @@ class ConfigCheck:
 
         self.config = configparser.ConfigParser()
 
-        if not os.path.isfile(f'./{CONFIG_FILE}'):
-            print(f'\nCannot find config file therefore writing default file to {CONFIG_FILE}.'
-                  '\nPlease review config and rerun')
-            self.write_config()
-            sys.exit(1)
+        # if not os.path.isfile(f'./{CONFIG_FILE}'):
+            # print(f'\nCannot find config file therefore writing default file to {CONFIG_FILE}.'
+                  # '\nPlease review config and rerun')
+            # self.write_config()
+            # sys.exit(1)
 
     def parse(self):
         self.read_config()

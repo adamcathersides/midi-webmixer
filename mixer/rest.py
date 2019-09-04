@@ -1,9 +1,9 @@
 from flask import Flask, request
 from flask_restful import Api, Resource
-import send_cc
+import mixer.send_cc as send_cc
 import json
 import os
-from config import ConfigCheck
+from mixer.config import ConfigCheck
 
 app = Flask(__name__)
 api = Api(app)
@@ -41,8 +41,8 @@ class Mixer(Resource):
 
         self.midi = send_cc.midi(cfg['Midi']['port'])
 
-        if os.path.isfile('./channelmap.json'):
-            with open('channelmap.json', 'r') as mapfile:
+        if os.path.isfile('/tmp/channelmap.json'):
+            with open('/tmp/channelmap.json', 'r') as mapfile:
                 self.channelMap = json.load(mapfile)
         else:
             self.channelMap = _createChannelMap()
@@ -71,5 +71,8 @@ cfg = ConfigCheck().parse()
 
 api.add_resource(Mixer, '/mixer/aux<int:aux>/<int:channel>/<int:value>', endpoint = 'mixer')
 
-if __name__ == '__main__':
+def run():
     app.run(debug=True, host='0.0.0.0', port=5001)
+
+if __name__ == '__main__':
+    run()
