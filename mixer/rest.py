@@ -11,6 +11,12 @@ api = Api(app)
 
 def _createChannelMap():
 
+    """"
+    Auto generate the channel map like so:
+
+    {"aux1": {"channel1": {"cc": 0, "value": 74}....}
+    """
+
     mix_map = {}
     for mix in range(1,5):
         mix_map[f'aux{mix}'] = {}

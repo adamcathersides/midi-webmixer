@@ -6,7 +6,11 @@ class midi:
     def __init__(self, midiport):
 
         self.midiout = rtmidi.MidiOut()
-        self.midiout.open_port(midiport)
+        if midiport == 'virtual':
+            print('Virtual midi port used')
+            self.midiout.open_virtual_port('Virtual Midi Out')
+        else:
+            self.midiout.open_port(midiport)
 
     def cc_tx(self, control_number, value):
 

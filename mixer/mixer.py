@@ -2,11 +2,12 @@
 
 import functools
 import netifaces
-from flask import Blueprint, flash, g, redirect, render_template, request, session, url_for
+from flask import Flask, Blueprint, flash, g, redirect, render_template, request, session, url_for
 import json
 from mixer.config import ConfigCheck
 # from mixer.db import get_db
 
+app = Flask(__name__)
 bp = Blueprint('mixer', __name__, url_prefix='/mixer')
 cfg = ConfigCheck().parse()
 
@@ -41,3 +42,5 @@ def mixer(mix):
 
     return render_template('mixer/mixer.html', ip_addr=ip_addr, mix=mix, channel_map=channel_map, channel_names=cfg['ChannelNames'])
 
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0', port=5000)
