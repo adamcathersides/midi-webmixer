@@ -11,9 +11,9 @@ import mixer.rest
 def start(config, gui, restapi, port, debug):
 
     if gui:
-        mixer.mixer.run(port, debug)
+        mixer.mixer.run(config, port, debug)
     if restapi:
-        mixer.rest.run(port, debug)
+        mixer.rest.run(config, port, debug)
     else:
         print('Please select --gui or --restapi')
 

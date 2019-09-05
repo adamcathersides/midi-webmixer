@@ -8,14 +8,14 @@ from mixer.config import ConfigCheck
 import os
 # from mixer.db import get_db
 
-cfg = ConfigCheck().parse()
-interface = cfg['Network']['Interface']
-ip_addr = netifaces.ifaddresses(interface)[2][0]['addr']
-
 app = Flask(__name__)
 
 @app.route('/mixer/<mix>', methods=('GET', 'POST'))
 def mixer(mix):
+
+    cfg = ConfigCheck().parse()
+    interface = cfg['Network']['Interface']
+    ip_addr = netifaces.ifaddresses(interface)[2][0]['addr']
 
     with open('/tmp/channelmap.json', 'r') as mapfile:
         channel_map = json.load(mapfile)

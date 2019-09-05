@@ -2,7 +2,6 @@ import configparser
 import os
 import sys
 
-CONFIG_FILE = 'config.ini'
 
 DEFAULT_CONFIG = ({'Network':{'interface':''},
     'Midi': {'port':''},
@@ -26,8 +25,9 @@ DEFAULT_CONFIG = ({'Network':{'interface':''},
 
 class ConfigCheck:
 
-    def __init__(self):
+    def __init__(self, config_file):
 
+        self.config_file = config_file
         self.config = configparser.ConfigParser()
 
         # if not os.path.isfile(f'./{CONFIG_FILE}'):
@@ -40,12 +40,12 @@ class ConfigCheck:
         self.read_config()
         return self.config
 
-    def write_config(self, filename=CONFIG_FILE):
+    def write_config(self, filename=config_file):
         self.config.read_dict(DEFAULT_CONFIG)
         with open(filename, 'w') as configfile:
             self.config.write(configfile)
 
-    def read_config(self, filename=CONFIG_FILE):
+    def read_config(self, filename=self.config_file):
         cfg = self.config.read(filename)
 
 
