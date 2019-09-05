@@ -71,8 +71,8 @@ cfg = ConfigCheck().parse()
 
 api.add_resource(Mixer, '/mixer/aux<int:aux>/<int:channel>/<int:value>', endpoint = 'mixer')
 
-def run():
-    app.run(debug=True, host='0.0.0.0', port=5001)
+def run(port, debug):
+    app.run(debug=debug, host='0.0.0.0', port=port)
 
 if __name__ == '__main__':
     run()

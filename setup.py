@@ -12,7 +12,8 @@ setup(
         'flask',
         'flask-restful',
         'python-rtmidi',
-        'netifaces'
+        'netifaces',
+        'click'
     ],
     classifiers = [
         "Development Status :: 3 - Alpha",
@@ -20,8 +21,7 @@ setup(
     ],
     entry_points={
           'console_scripts': [
-              'webmixer-gui = mixer.mixer:run',
-              'webmixer-rest = mixer.rest:run'
+              'webmixer = mixer.cli:start'
           ]
       }
 )
