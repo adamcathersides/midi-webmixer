@@ -6,7 +6,9 @@ The idea being that each of the memebers in my band can control their own monito
 # Installation
 
 Clone the repo:
-`git clone git@github.com:adamcathersides/midi-webmixer.git`
+```
+git clone git@github.com:adamcathersides/midi-webmixer.git
+```
 
 Install
 ```
