@@ -1,6 +1,10 @@
+#!/usr/bin/env python3
+
 import click
 import mixer.mixer
 import mixer.rest
+import netifaces
+from mixer.config import ConfigCheck
 
 @click.command()
 @click.option('--config', required=True, type=str)
@@ -10,10 +14,21 @@ import mixer.rest
 @click.option('--debug', is_flag=True)
 def start(config, gui, restapi, port, debug):
 
+    """
+    Read config and start the app
+    """
+
+    c = ConfigCheck(config)
+    cfg = c.parse()
+    interface = cfg['Network']['Interface']
+    ip_addr = netifaces.ifaddresses(interface)[2][0]['addr']
+    channel_names = cfg['ChannelNames']
+    midi_port = cfg['Midi']['Port']
+
     if gui:
-        mixer.mixer.run(config, port, debug)
+        mixer.mixer.run(port, debug, channel_names, ip_addr)
     if restapi:
-        mixer.rest.run(config, port, debug)
+        mixer.rest.run(port, debug, midi_port)
     else:
         print('Please select --gui or --restapi')
 

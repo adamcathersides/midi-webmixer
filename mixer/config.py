@@ -25,9 +25,9 @@ DEFAULT_CONFIG = ({'Network':{'interface':''},
 
 class ConfigCheck:
 
-    def __init__(self, config_file):
+    def __init__(self, filename):
 
-        self.config_file = config_file
+        self.filename = filename
         self.config = configparser.ConfigParser()
 
         # if not os.path.isfile(f'./{CONFIG_FILE}'):
@@ -37,15 +37,12 @@ class ConfigCheck:
             # sys.exit(1)
 
     def parse(self):
-        self.read_config()
+        self.config.read(self.filename)
         return self.config
 
-    def write_config(self, filename=config_file):
+    def write_config(self):
         self.config.read_dict(DEFAULT_CONFIG)
-        with open(filename, 'w') as configfile:
+        with open(self.filename, 'w') as configfile:
             self.config.write(configfile)
-
-    def read_config(self, filename=self.config_file):
-        cfg = self.config.read(filename)
 
 
