@@ -5,6 +5,7 @@ import mixer.mixer
 import mixer.rest
 import netifaces
 from mixer.config import ConfigCheck
+from rtmidi import midiutil
 
 @click.command()
 @click.option('--config', required=True, type=str)
@@ -12,7 +13,8 @@ from mixer.config import ConfigCheck
 @click.option('--restapi', is_flag=True)
 @click.option('--port', default=5000, type=int)
 @click.option('--debug', is_flag=True)
-def start(config, gui, restapi, port, debug):
+@click.option('--listmidi', is_flag=True, callback=midiutil.list_output_ports())
+def start(config, gui, restapi, port, debug, listmidi):
 
     """
     Read config and start the app

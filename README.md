@@ -21,10 +21,10 @@ pip install . --user
 Once installed the application `webmixer` should be available
 
 The application if comprised to two parts.  
-* restapi and the 
+* RestAPI 
 * GUI (webpage) 
 
-You can run the restapi by itself and access it manually if required (I use the amazing [Insomnia](https://insomnia.rest/) to do this.
+You can run the restapi by itself and access it manually if required (I use the amazing [Insomnia](https://insomnia.rest/) to do this.)
 The GUI part relies on the restapi to be running.
 
 ## Running the REST api
@@ -66,3 +66,8 @@ port = virtual
 12 =
 ```
 
+# Get midiport numbers
+
+```
+webmixer --listmidi
+```
