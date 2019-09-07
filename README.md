@@ -7,7 +7,7 @@ The idea being that each of the memebers in my band can control their own monito
 
 The config file is pretty self explanatory.  As well as normal midi and networking settings, it also allows you to define custom channel channel names.
 
-If midi port is set to virtual the system will create a fake midi port which is handy for debugging.
+If midi port is set to `virtual` the system will create a fake midi port which is handy for debugging.
 
 Here is an example:
 
