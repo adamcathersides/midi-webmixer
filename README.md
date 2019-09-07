@@ -71,3 +71,12 @@ port = virtual
 ```
 webmixer --listmidi
 ```
+
+# Docker
+
+```
+cd midi-webmixer
+docker build -t webmixer:1 .
+docker run --net=host -v /home/adam/github/01v-midi/config.ini:/config.ini webmixer:1 /config.ini --restapi
+docker run --net=host -v /home/adam/github/01v-midi/config.ini:/config.ini webmixer:1 /config.ini --gui
+```
