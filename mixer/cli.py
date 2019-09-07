@@ -7,14 +7,23 @@ import netifaces
 from mixer.config import ConfigCheck
 from rtmidi import midiutil
 
+
+def print_midiports(ctx, param, value):
+
+    if not value or ctx.resilient_parsing:
+        return
+    click.echo(midiutil.list_output_ports())
+    ctx.exit()
+
+
 @click.command()
-@click.option('--config', required=True, type=str)
+@click.argument('config', type=click.Path(exists=True))
 @click.option('--gui', is_flag=True)
 @click.option('--restapi', is_flag=True)
 @click.option('--port', default=5000, type=int)
 @click.option('--debug', is_flag=True)
-@click.option('--listmidi', is_flag=True, callback=midiutil.list_output_ports())
-def start(config, gui, restapi, port, debug, listmidi):
+@click.option('--listmidi', is_flag=True, is_eager=True, expose_value=False, callback=print_midiports)
+def start(config, gui, restapi, port, debug):
 
     """
     Read config and start the app
@@ -31,8 +40,6 @@ def start(config, gui, restapi, port, debug, listmidi):
         mixer.mixer.run(port, debug, channel_names, ip_addr)
     if restapi:
         mixer.rest.run(port, debug, midi_port)
-    else:
-        print('Please select --gui or --restapi')
 
 if __name__ == '__main__':
     start()
