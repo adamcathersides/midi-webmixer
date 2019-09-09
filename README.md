@@ -40,6 +40,7 @@ The GUI part relies on the restapi to be running.
 
 The config file is pretty self explanatory.  As well as normal midi and networking settings, it also allows you to define custom channel channel names.
 
+The midi port is the number of the midi out port you would like to use.  Find out what you have installed by running `webmix --listmidi` 
 If midi port is set to `virtual` the system will create a fake midi port which is handy for debugging.
 
 Here is an example:
@@ -49,7 +50,7 @@ Here is an example:
 interface = wlp2s0
 
 [Midi]
-port = virtual
+port = 0
 
 [ChannelNames]
 1 = Kick
