@@ -1,7 +1,7 @@
 # Midi Webmixer
 
 The aim of this project was to allow me to remotely control the 4 aux sends of my Yamaha 01V desk via midi.
-The idea being that each of the memebers in my band can control their own monitor mix on anything that can load a browser (phones etc)
+The idea being that each of the members in my band can control their own monitor mix on anything that can load a browser (phones etc)
 
 # Installation
 
