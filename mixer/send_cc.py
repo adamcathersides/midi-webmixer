@@ -10,7 +10,7 @@ class midi:
             print('Virtual midi port used')
             self.midiout.open_virtual_port('Virtual Midi Out')
         else:
-            self.midiout.open_port(midiport)
+            self.midiout.open_port(int(midiport))
 
     def cc_tx(self, control_number, value):
 
