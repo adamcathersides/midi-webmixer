@@ -38,7 +38,7 @@ The GUI part relies on the restapi to be running.
 
 # Config file
 
-The config file is pretty self explanatory.  As well as normal midi and networking settings, it also allows you to define custom channel channel names.
+The config file is pretty self explanatory.  As well as normal midi and networking settings, it also allows you to define custom channel names.
 
 The midi port is the number of the midi out port you would like to use.  Find out what you have installed by running `webmix --listmidi` 
 If midi port is set to `virtual` the system will create a fake midi port which is handy for debugging.
