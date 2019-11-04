@@ -4,15 +4,22 @@ import functools
 from flask import Flask, Blueprint, flash, g, redirect, render_template, request, session, url_for
 import json
 import os
+import mixer.redis_store as redis_store
+import mixer.utils as utils
 
 app = Flask(__name__)
 
 @app.route('/mixer/<mix>', methods=('GET', 'POST'))
 def mixer(mix):
 
-    with open('/tmp/channelmap.json', 'r') as mapfile:
-        channel_map = json.load(mapfile)
+    dataStore = redis_store.data()
+    print(f'channel_map:{dataStore.get("channel_map")}')
+    # if dataStore.get('channel_map'):
+        # channel_map = dataStore.get('channel_data')
+    # else:
+        # channel_map = utils._createChannelMap()
 
+    channel_map = dataStore.get('channel_data')
     print(app.config['CHANNEL_NAMES'])
     print(app.config['IP_ADDR'])
 
