@@ -13,17 +13,16 @@ app = Flask(__name__)
 def mixer(mix):
 
     dataStore = redis_store.data()
-    print(f'channel_map:{dataStore.get("channel_map")}')
-    # if dataStore.get('channel_map'):
-        # channel_map = dataStore.get('channel_data')
-    # else:
-        # channel_map = utils._createChannelMap()
 
-    channel_map = dataStore.get('channel_data')
-    print(app.config['CHANNEL_NAMES'])
-    print(app.config['IP_ADDR'])
+    # Check that the channel data is already in redis, if not create it. 
+    # Should probably seperate this out.
+    if dataStore.get('channel_data'):
+        channelMap = dataStore.get('channel_data')
+    else:
+        dataStore.set('channel_data', utils._createChannelMap())
+    channelMap = dataStore.get('channel_data')
 
-    return render_template('mixer/mixer.html', ip_addr=app.config['IP_ADDR'], mix=mix, channel_map=channel_map, channel_names=app.config['CHANNEL_NAMES'])
+    return render_template('mixer/mixer.html', ip_addr=app.config['IP_ADDR'], mix=mix, channel_map=channelMap, channel_names=app.config['CHANNEL_NAMES'])
 
 
 def run(port, debug, channel_names, ip_addr):

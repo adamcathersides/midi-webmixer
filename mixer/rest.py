@@ -16,10 +16,13 @@ class Mixer(Resource):
 
         self.midi = send_cc.midi(app.config['MIDI_PORT'])
         self.dataStore = redis_store.data()
-        # if self.dataStore.get('channel_map'):
-            # self.channelMap = self.dataStore.get('channel_data')
-        # else:
-            # self.channelMap = utils._createChannelMap()
+
+        # Check that the channel data is already in redis, if not create it. This is also used in the mixer app.
+        # Should probably seperate this out.
+        if self.dataStore.get('channel_data'):
+            self.channelMap = self.dataStore.get('channel_data')
+        else:
+            self.dataStore.set('channel_data', utils._createChannelMap())
         self.channelMap = self.dataStore.get('channel_data')
 
     def post(self, aux, channel, value):
