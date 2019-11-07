@@ -15,7 +15,7 @@ class Mixer(Resource):
     def __init__(self):
 
         self.midi = send_cc.midi(app.config['MIDI_PORT'])
-        self.dataStore = redis_store.data()
+        self.dataStore = redis_store.data(redis_host=app.config['REDIS_HOST'], redis_port=app.config['REDIS_PORT'])
 
         # Check that the channel data is already in redis, if not create it. This is also used in the mixer app.
         # Should probably seperate this out.
@@ -45,9 +45,11 @@ class Mixer(Resource):
 
 api.add_resource(Mixer, '/mixer/aux<int:aux>/<int:channel>/<int:value>', endpoint = 'mixer')
 
-def run(port, debug, midi_port):
+def run(port, debug, midi_port, redis_host, redis_port):
 
     app.config['MIDI_PORT'] = midi_port
+    app.config['REDIS_HOST'] = redis_host
+    app.config['REDIS_PORT'] = redis_port
     app.run(debug=debug, host='0.0.0.0', port=port)
 
 if __name__ == '__main__':

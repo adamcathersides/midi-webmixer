@@ -31,15 +31,21 @@ def start(config, gui, restapi, port, debug):
 
     c = ConfigCheck(config)
     cfg = c.parse()
-    interface = cfg['Network']['Interface']
+    interface = cfg['Network']['interface']
     ip_addr = netifaces.ifaddresses(interface)[2][0]['addr']
     channel_names = cfg['ChannelNames']
-    midi_port = cfg['Midi']['Port']
+    midi_port = cfg['Midi']['port']
+    redis_host = cfg['Services']['redis_host']
+    redis_port = cfg['Services']['redis_port']
+    rest_host = cfg['Services']['rest_host']
+    rest_port = cfg['Services']['rest_port']
+    gui_host = cfg['Services']['gui_host']
+    gui_port = cfg['Services']['gui_port']
 
     if gui:
-        mixer.mixer.run(port, debug, channel_names, ip_addr)
+        mixer.mixer.run(port, debug, channel_names, ip_addr, redis_host, redis_port, rest_host, rest_port)
     if restapi:
-        mixer.rest.run(port, debug, midi_port)
+        mixer.rest.run(port, debug, midi_port, redis_host, redis_port)
 
 if __name__ == '__main__':
     start()

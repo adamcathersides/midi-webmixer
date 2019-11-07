@@ -1,22 +1,28 @@
 version: '3'
 services:
-
   gui:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: docker/Dockerfile
     image: webmixer:1
     ports:
-    - "5000:5000"
+      - "5000:5000"
     volumes:
-    - ./config.ini:/config.ini
-    - ./channelmap.json:/tmp/channelmap.json
+      - ./config.ini:/config.ini
     command: --gui /config.ini
 
   restapi:
       image: webmixer:1
+      ports:
+        - "5001:5000"
       volumes:
-      - ./config.ini:/config.ini
+        - ./config.ini:/config.ini
       command: --restapi /config.ini
       #devices:
       #- "/dev/midi00:/dev/midi00"
+  redis:
+      image: redis
+      ports:
+        - "6379:6379"
+      expose:
+        - "6379"

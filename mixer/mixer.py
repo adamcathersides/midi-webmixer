@@ -12,9 +12,9 @@ app = Flask(__name__)
 @app.route('/mixer/<mix>', methods=('GET', 'POST'))
 def mixer(mix):
 
-    dataStore = redis_store.data()
+    dataStore = redis_store.data(redis_host=app.config['REDIS_HOST'], redis_port=app.config['REDIS_PORT'])
 
-    # Check that the channel data is already in redis, if not create it. 
+    # Check that the channel data is already in redis, if not create it.
     # Should probably seperate this out.
     if dataStore.get('channel_data'):
         channelMap = dataStore.get('channel_data')
@@ -22,13 +22,24 @@ def mixer(mix):
         dataStore.set('channel_data', utils._createChannelMap())
     channelMap = dataStore.get('channel_data')
 
-    return render_template('mixer/mixer.html', ip_addr=app.config['IP_ADDR'], mix=mix, channel_map=channelMap, channel_names=app.config['CHANNEL_NAMES'])
+    return render_template('mixer/mixer.html',
+                            rest_host=app.config['REST_HOST'],
+                            rest_port=app.config['REST_PORT'],
+                            mix=mix,
+                            channel_map=channelMap,
+                            channel_names=app.config['CHANNEL_NAMES'])
 
 
-def run(port, debug, channel_names, ip_addr):
+def run(port, debug, channel_names,
+        ip_addr, redis_host, redis_port,
+        rest_host, rest_port):
 
     app.config['CHANNEL_NAMES'] = channel_names
     app.config['IP_ADDR'] = ip_addr
+    app.config['REDIS_HOST'] = redis_host
+    app.config['REDIS_PORT'] = redis_port
+    app.config['REST_HOST'] = rest_host
+    app.config['REST_PORT'] = rest_port
     app.run(debug=debug, host='0.0.0.0', port=port)
 
 

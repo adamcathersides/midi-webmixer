@@ -13,7 +13,8 @@ setup(
         'flask-restful',
         'python-rtmidi',
         'netifaces',
-        'click'
+        'click',
+        'redis'
     ],
     classifiers = [
         "Development Status :: 3 - Alpha",
