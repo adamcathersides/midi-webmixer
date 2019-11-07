@@ -4,6 +4,7 @@ import functools
 from flask import Flask, Blueprint, flash, g, redirect, render_template, request, session, url_for
 import json
 import os
+import socket
 import mixer.redis_store as redis_store
 import mixer.utils as utils
 
@@ -14,6 +15,7 @@ def mixer(mix):
 
     dataStore = redis_store.data(redis_host=app.config['REDIS_HOST'], redis_port=app.config['REDIS_PORT'])
 
+    rest_ip = socket.gethostbyname(app.config['REST_HOST'])
     # Check that the channel data is already in redis, if not create it.
     # Should probably seperate this out.
     if dataStore.get('channel_data'):
@@ -23,7 +25,7 @@ def mixer(mix):
     channelMap = dataStore.get('channel_data')
 
     return render_template('mixer/mixer.html',
-                            rest_host=app.config['REST_HOST'],
+                            rest_host=rest_ip,
                             rest_port=app.config['REST_PORT'],
                             mix=mix,
                             channel_map=channelMap,

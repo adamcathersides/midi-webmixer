@@ -10,7 +10,6 @@ services:
     volumes:
       - ./config.ini:/config.ini
     command: --gui /config.ini
-
   restapi:
       image: webmixer:1
       ports:
