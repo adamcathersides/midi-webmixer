@@ -20,8 +20,14 @@ services:
       #devices:
       #- "/dev/midi00:/dev/midi00"
   redis:
-      image: redis
-      ports:
-        - "6379:6379"
+      image: redis:5
       expose:
         - "6379"
+      volumes:
+        - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
+        - "webmixerdata:/data"
+      command:
+        - /usr/local/etc/redis/redis.conf
+volumes:
+  webmixerdata:
+
