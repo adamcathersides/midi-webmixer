@@ -13,7 +13,7 @@ git clone git@github.com:adamcathersides/midi-webmixer.git
 Install
 ```
 cd midi-webmixer
-pip install . --user
+pip3 install . --user
 ```
 
 # Running
@@ -24,8 +24,23 @@ The application if comprised to two parts.
 * RestAPI 
 * GUI (webpage) 
 
+## General archetecture overview
+
+This application is split into two parts; a rest API and a the main GUI - both of which can be run from the `webmixer` command.  Data storage and persistance is dealt with via redis.
+Both the rest API and mixer GUI need to be externally accessible as the GUI sends requests to the rest API using [sendBeacon](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/sendBeacon) messages.
+
+It is reccomended to run this application using the docker-compose file provided.  However due to the (probably shortsighted) design the GUI container needs to know what the externally accessible hostname of the rest API therefore this has to be manually provided at the point of running `docker-compose up`.  See [docker-compose](#docker-compose) section for an example. 
+
 You can run the restapi by itself and access it manually if required (I use the amazing [Insomnia](https://insomnia.rest/) to do this.)
 The GUI part relies on the restapi to be running.
+
+## Poke the rest API
+
+The rest API accepts POST requests like so:
+`http://rest_api:5001/mixer/<aux>/<channel>/<value>`
+
+So if you wanted to set aux1, channel 2 to full volume:
+`http://rest_api:5001/mixer/aux1/2/127`
 
 ## Running the REST api
 
@@ -43,28 +58,38 @@ The config file is pretty self explanatory.  As well as normal midi and networki
 The midi port is the number of the midi out port you would like to use.  Find out what you have installed by running `webmix --listmidi` 
 If midi port is set to `virtual` the system will create a fake midi port which is handy for debugging.
 
+If `rest_host` is left blank it will attempt to use an environment variable called `REST_HOST`.  This is required when deploying in containerised enviroments.
+
 Here is an example:
 
 ```
 [Network]
-interface = wlp2s0
+interface = lo
+
+[Services]
+redis_host = redis
+redis_port = 6379
+rest_host =
+rest_port = 5001
+gui_host = gui
+gui_port = 5000
 
 [Midi]
-port = 0
+port = virtual
 
 [ChannelNames]
 1 = Kick
-2 = Snare
-3 = Hats
+2 = SNR
+3 = OH
 4 =
-5 =
-6 =
-7 =
-8 =
+5 = Dave
+6 = Jon
+7 = Adam
+8 = Paul
 9 =
-10 =
-11 =
-12 =
+10 = Bass
+11 = AdamGit
+12 = JonGit
 ```
 
 # Get midiport numbers
@@ -84,8 +109,14 @@ docker run --net=host -v /home/adam/github/01v-midi/config.ini:/config.ini webmi
 
 # Docker Compose
 
+This is an example of how to run on the webmixer from a single machine.  
+The `HOSTNAME` variable is required in order for the GUI to contact the rest API.  It can also be set in the `config.ini`
+
 ```
 cd midi-webmixer
 docker-compose build
-docker-compose up
+HOSTNAME=$(hostname) docker-compose up
 ```
+
+
+
