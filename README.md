@@ -5,6 +5,8 @@ The idea being that each of the members in my band can control their own monitor
 
 # Installation
 
+I reccomend using the docker compose file if you wan to get started quickly.  However here are some manual installation steps..
+
 Clone the repo:
 ```
 git clone git@github.com:adamcathersides/midi-webmixer.git
