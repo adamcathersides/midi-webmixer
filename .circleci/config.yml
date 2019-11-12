@@ -7,6 +7,4 @@ jobs:
       - checkout
       - run:
           command: |
-            pwd
-            ls -ltr
-            pip install $(pwd)/midi-webmixer/
+            pip install .
