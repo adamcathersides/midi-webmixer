@@ -107,7 +107,7 @@ docker run --net=host -v /home/adam/github/01v-midi/config.ini:/config.ini webmi
 docker run --net=host -v /home/adam/github/01v-midi/config.ini:/config.ini webmixer:1 /config.ini --gui
 ```
 
-# Docker Compose
+# Docker Compose (Reccomended)
 
 This is an example of how to run on the webmixer from a single machine.  
 The `HOSTNAME` variable is required in order for the GUI to contact the rest API.  It can also be set in the `config.ini`
