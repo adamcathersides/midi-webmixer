@@ -8,14 +8,16 @@ services:
     ports:
       - "5000:5000"
     volumes:
-      - ./config.ini:/config.ini
+      - ./docker/docker_config.ini:/config.ini
     command: --gui /config.ini
+    environment:
+      - REST_HOST=${HOSTNAME}
   restapi:
       image: webmixer:1
       ports:
         - "5001:5000"
       volumes:
-        - ./config.ini:/config.ini
+        - ./docker/docker_config.ini:/config.ini
       command: --restapi /config.ini
       #devices:
       #- "/dev/midi00:/dev/midi00"

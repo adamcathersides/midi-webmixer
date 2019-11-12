@@ -4,6 +4,7 @@ import click
 import mixer.mixer
 import mixer.rest
 import netifaces
+import os
 from mixer.config import ConfigCheck
 from rtmidi import midiutil
 
@@ -37,10 +38,21 @@ def start(config, gui, restapi, port, debug):
     midi_port = cfg['Midi']['port']
     redis_host = cfg['Services']['redis_host']
     redis_port = cfg['Services']['redis_port']
-    rest_host = cfg['Services']['rest_host']
-    rest_port = cfg['Services']['rest_port']
     gui_host = cfg['Services']['gui_host']
     gui_port = cfg['Services']['gui_port']
+
+    # Allow for getting rest_host from env var
+    if cfg['Services']['rest_host']:
+        rest_host = cfg['Services']['rest_host']
+    else:
+        print('rest_host not set in config file - this may not be a problem')
+        try:
+            rest_host = os.environ['REST_HOST']
+            print('rest_host not set in config, using REST_HOST environment variable')
+        except KeyError as e:
+            print(f'Error reading environment variable: {e}')
+
+    rest_port = cfg['Services']['rest_port']
 
     if gui:
         mixer.mixer.run(port, debug, channel_names, ip_addr, redis_host, redis_port, rest_host, rest_port)
