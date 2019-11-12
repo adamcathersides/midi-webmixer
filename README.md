@@ -1,3 +1,4 @@
+[![CircleCI](https://circleci.com/gh/adamcathersides/midi-webmixer/tree/master.svg?style=svg)](https://circleci.com/gh/adamcathersides/midi-webmixer/tree/master)
 # Midi Webmixer
 
 The aim of this project was to allow me to remotely control the 4 aux sends of my Yamaha 01V desk via midi.
