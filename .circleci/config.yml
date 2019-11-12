@@ -5,4 +5,7 @@ jobs:
       - image: circleci/python:3.7.4-buster
     steps:
       - checkout
-      - run: pip install ~/midi-webmixer/
+      - run:
+          command: |
+            pwd
+            pip install ~/midi-webmixer/
