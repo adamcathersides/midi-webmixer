@@ -8,4 +8,5 @@ jobs:
       - run:
           command: |
             pwd
-            pip install ~/midi-webmixer/
+            ls -ltr
+            pip install $(pwd)/midi-webmixer/
