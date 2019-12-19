@@ -19,8 +19,11 @@ services:
       volumes:
         - ./docker/docker_config.ini:/config.ini
       command: --restapi /config.ini
-      #devices:
-      #- "/dev/midi00:/dev/midi00"
+      # devices:
+      # - "/dev/midi1:/dev/midi1"
+      privileged: true
+      cap_add:
+        - ALL
   redis:
       image: redis:5
       expose:
