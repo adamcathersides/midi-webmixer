@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name = "webmixer",
+    name = "midi-webmixer",
     version = "0.0.1",
     author = "Adam Cathersides",
     author_email = "adamcathersides@gmail.com",
